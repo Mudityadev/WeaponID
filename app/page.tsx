@@ -1,15 +1,14 @@
-
 "use client"
 
 import React, { useState } from 'react';
 import Image from 'next/image';
 
 export default function Home() {
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [result, setResult] = useState(null);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [result, setResult] = useState<{ name: string; confidence: string } | null>(null);
 
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setSelectedImage(imageUrl);
@@ -25,15 +24,15 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-gray-900 flex flex-col items-center justify-center p-6">
+    <main className="min-h-screen bg-gray-900 flex flex-col items-center justify-center p-6 text-white">
       <h1 className="text-3xl font-bold mb-6">WeaponID - AI Detection</h1>
 
-      <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-md">
+      <div className="bg-gray-800 rounded-xl shadow-lg p-6 w-full max-w-md">
         <input
           type="file"
           accept="image/*"
           onChange={handleImageUpload}
-          className="w-full bg-gray-400 mb-4 text-sm"
+          className="w-full bg-gray-700 text-white border border-gray-600 mb-4 p-2 rounded"
         />
 
         {selectedImage && (
@@ -52,7 +51,7 @@ export default function Home() {
           <div className="mt-4 text-center">
             <h2 className="text-xl font-semibold">Prediction Result:</h2>
             <p className="text-lg mt-2">Weapon: {result.name}</p>
-            <p className="text-gray-600">Confidence: {result.confidence}</p>
+            <p className="text-gray-300">Confidence: {result.confidence}</p>
           </div>
         )}
       </div>
