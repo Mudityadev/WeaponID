@@ -1,11 +1,14 @@
-"use client"
+"use client";
 
-import React, { useState } from 'react';
-import Image from 'next/image';
+import React, { useState } from "react";
+import Image from "next/image";
 
 export default function Home() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [result, setResult] = useState<{ name: string; confidence: string } | null>(null);
+  const [result, setResult] = useState<{
+    name: string;
+    confidence: string;
+  } | null>(null);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -16,42 +19,71 @@ export default function Home() {
       // Dummy result
       setTimeout(() => {
         setResult({
-          name: 'AK-47',
-          confidence: '94.73%',
+          name: "AK-74M",
+          confidence: "95.2%",
         });
       }, 1000);
     }
   };
 
   return (
-    <main className="min-h-screen bg-gray-900 flex flex-col items-center justify-center p-6 text-white">
-      <h1 className="text-3xl font-bold mb-6">WeaponID - AI Detection</h1>
+    <main className="bg-white min-h-screen py-10 px-6 text-black">
+      <h1 className="text-4xl font-bold text-center mb-6">
+        Identify weapons with <span className="italic font-semibold">AI</span>
+      </h1>
 
-      <div className="bg-gray-800 rounded-xl shadow-lg p-6 w-full max-w-md">
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleImageUpload}
-          className="w-full bg-gray-700 text-white border border-gray-600 mb-4 p-2 rounded"
-        />
+      <div className="flex flex-col items-center">
+        {/* Upload button */}
+        <label
+          htmlFor="upload"
+          className="cursor-pointer flex items-center justify-center border border-gray-300 px-6 py-4 rounded-xl text-gray-700 hover:bg-gray-100 transition mb-10"
+        >
+          <span className="text-xl mr-2">＋</span>
+          Upload an image of a weapon…
+          <input
+            type="file"
+            id="upload"
+            accept="image/*"
+            className="hidden"
+            onChange={handleImageUpload}
+          />
+        </label>
 
-        {selectedImage && (
-          <div className="mb-4">
-            <Image
-              src={selectedImage}
-              alt="Uploaded Preview"
-              width={400}
-              height={300}
-              className="rounded-lg"
-            />
-          </div>
-        )}
+        {/* Result display */}
+        {selectedImage && result && (
+          <div className="flex flex-col md:flex-row gap-6 w-full max-w-5xl justify-center">
+            {/* Image + label */}
+            <div className="bg-white border border-gray-200 rounded-xl p-4 w-full md:w-1/2 shadow">
+              <Image
+                src={selectedImage}
+                alt="Weapon Preview"
+                width={500}
+                height={300}
+                className="rounded-lg mb-4 object-contain"
+              />
+              <h2 className="text-2xl font-bold">{result.name}</h2>
+              <p className="text-gray-600">{result.confidence}</p>
+            </div>
 
-        {result && (
-          <div className="mt-4 text-center">
-            <h2 className="text-xl font-semibold">Prediction Result:</h2>
-            <p className="text-lg mt-2">Weapon: {result.name}</p>
-            <p className="text-gray-300">Confidence: {result.confidence}</p>
+            {/* Metadata panel */}
+            <div className="bg-white border border-gray-200 rounded-xl p-6 w-full md:w-1/2 shadow">
+              <h3 className="text-xl font-semibold mb-4">Weapon Intelligence</h3>
+              <div className="text-sm text-gray-800 space-y-2">
+                <p><strong>Origin Country:</strong> Russia</p>
+                <p><strong>Type:</strong> Assault Rifle</p>
+                <p><strong>Manufacturer:</strong> Kalashnikov Concern</p>
+                <p><strong>Production Years:</strong> 1991–present</p>
+                <p><strong>How It Works:</strong> Gas-operated, rotating bolt</p>
+                <p><strong>Conflict Zones Used:</strong> Syrian Civil War, War in Donbas</p>
+                <p><strong>Last Known Use:</strong> Bakhmut, January 2023</p>
+                <p><strong>Export History:</strong> Belarus, India, Mongolia</p>
+                <p>
+                  <strong>External Sources:</strong>{" "}
+                  <a href="https://wikipedia.org" className="text-blue-600 hover:underline" target="_blank">Wikipedia</a>,{" "}
+                  <a href="https://sipri.org" className="text-blue-600 hover:underline" target="_blank">SIPRI</a>
+                </p>
+              </div>
+            </div>
           </div>
         )}
       </div>

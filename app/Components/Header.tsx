@@ -1,16 +1,31 @@
-import React from 'react';
-import Link from 'next/link';
+"use client";
+
+import React from "react";
+import Link from "next/link";
+import { FaUserCircle } from "react-icons/fa";
+import { FaMapMarkerAlt } from "react-icons/fa";
 
 const Header = () => {
   return (
-    <header className="w-full bg shadow-md p-4 flex items-center justify-between">
-      <h1 className="text-xl font-bold text-gray-800">WeaponID</h1>
-      <nav className="space-x-4">
-        <Link href="/" className="text-gray-700 hover:text-black">Home</Link>
-        <Link href="#how-it-works" className="text-gray-700 hover:text-black">How It Works</Link>
-        <Link href="#about" className="text-gray-700 hover:text-black">About</Link>
-        <Link href="#login" className="text-blue-600 hover:underline">Login</Link>
-      </nav>
+    <header className="w-full flex items-center justify-between px-6 py-4 bg-white border-b border-gray-200">
+      {/* Left logo */}
+      <div className="flex items-center space-x-2">
+        <FaMapMarkerAlt className="text-black text-lg" />
+        <span className="text-xl font-bold tracking-tight text-black">WEAPON ID | Muditya Raghav</span>
+      </div>
+
+      {/* Right navigation */}
+      <div className="flex items-center space-x-6">
+        <Link href="#" className="text-sm font-medium text-gray-800 hover:underline">
+          Search Weapons
+        </Link>
+        <Link href="#" className="text-sm font-medium text-gray-800 hover:underline">
+          User History
+        </Link>
+        <button className="p-1 rounded-full bg-gray-100 hover:bg-gray-200">
+          <FaUserCircle className="text-2xl text-gray-700" />
+        </button>
+      </div>
     </header>
   );
 };
