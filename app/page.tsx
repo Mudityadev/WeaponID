@@ -17,7 +17,7 @@ export default function Home() {
       setTimeout(() => {
         setResult({
           name: 'AK-47',
-          confidence: '94.7%',
+          confidence: '94.73%',
         });
       }, 1000);
     }
